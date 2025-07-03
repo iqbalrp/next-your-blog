@@ -1,52 +1,64 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState, forwardRef, useImperativeHandle } from "react"
-import { EDITOR_TOOLS } from "./editorTools"
+import {
+  useEffect,
+  useRef,
+  useState,
+  forwardRef,
+  useImperativeHandle,
+} from "react";
+import { EDITOR_TOOLS } from "./editorTools";
+import type EditorJS from "@editorjs/editorjs";
 
 const EditorClient = forwardRef((_, editorRef) => {
-  const localRef = useRef<any>(null)
-  const [isMounted, setIsMounted] = useState(false)
+  const localRef = useRef<EditorJS | null>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true)
-  }, [])
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!isMounted) return
+    if (!isMounted) return;
 
     const init = async () => {
-      const EditorJS = (await import("@editorjs/editorjs")).default
+      const EditorJS = (await import("@editorjs/editorjs")).default;
 
       const editor = new EditorJS({
         holder: "editorjs",
         tools: EDITOR_TOOLS,
         autofocus: true,
         onReady() {
-          localRef.current = editor
+          localRef.current = editor;
         },
-      })
-    }
+      });
+    };
 
-    init()
+    init();
 
     return () => {
       if (localRef.current?.destroy) {
-        localRef.current.destroy()
-        localRef.current = null
+        localRef.current.destroy();
+        localRef.current = null;
       }
-    }
-  }, [isMounted])
+    };
+  }, [isMounted]);
 
   // expose ref ke luar
   useImperativeHandle(editorRef, () => ({
     save: async () => {
-      if (!localRef.current) throw new Error("Editor belum siap")
-      return await localRef.current.save()
+      if (!localRef.current) throw new Error("Editor belum siap");
+      return await localRef.current.save();
     },
-  }))
+  }));
 
-  return <div id="editorjs" className="min-h-[300px] w-full border py-4 rounded-[8px] border-neutral-300 bg-white" />
-})
+  return (
+    <div
+      id="editorjs"
+      className="min-h-[300px] w-full border py-4 rounded-[8px] border-neutral-300 bg-white"
+    />
+  );
+});
 
-EditorClient.displayName = "EditorClient"
-export default EditorClient
+EditorClient.displayName = "EditorClient";
+export default EditorClient;

@@ -64,7 +64,8 @@ export default function LoginForm() {
         className="w-[182px] h-12 cursor-pointer"></Button>
 
       <h2 className=" text-center">
-        Don't have an account?
+        {`
+        Don't have an account?`}
         <Link href="/register" className=" text-primary-300">
           Register
         </Link>

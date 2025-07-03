@@ -1,22 +1,22 @@
-
-import { useRouter } from "next/navigation"
-import { useMutation } from "@tanstack/react-query"
-import { registerUser, RegisterPayload, RegisterResponse } from "@/services/auth"
-
+import { useRouter } from "next/navigation";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "@/services/auth";
+import axios from "axios";
 export const useRegistrationMutation = () => {
-  const router = useRouter()
+  const router = useRouter();
   return useMutation({
     mutationFn: registerUser,
     onSuccess: () => {
-      alert("Registrasi berhasil!")
-      router.push("/login")
+      alert("Registrasi berhasil!");
+      router.push("/login");
     },
-    onError: (error: any) => {
-      if (error?.response?.data?.message) {
-        alert(error.response.data.message)
+    onError: (error: unknown) => {
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data?.message;
+        alert(message || "Registrasi gagal. Silakan coba lagi.");
       } else {
-        alert("Registrasi gagal. Silakan coba lagi.")
+        alert("Registrasi gagal. Silakan coba lagi.");
       }
     },
-  })
-}
+  });
+};

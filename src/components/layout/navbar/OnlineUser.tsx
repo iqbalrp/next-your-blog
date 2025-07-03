@@ -1,10 +1,10 @@
-import { useUser } from "@/hooks/useUser";
+// import { useUser } from "@/hooks/useUser";
 import Image from "next/image";
 import Link from "next/link";
 import ProfileModal from "./ProfileModal";
 import { usePathname } from "next/navigation";
 const OnlineUser = () => {
-  const { data: user, isLoading } = useUser();
+  // const { data: user, isLoading } = useUser();
   const pathName = usePathname();
   const hideText = ["/dashboard/posts/create"].includes(pathName);
   return (

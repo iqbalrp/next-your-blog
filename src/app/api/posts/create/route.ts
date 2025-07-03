@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  console.log("📥 Route handler /api/posts/create triggered");
+  // console.log("📥 Route handler /api/posts/create triggered");
   const cookieStore = await cookies();
   const token = cookieStore.get("token")?.value;
 
@@ -18,12 +18,12 @@ export async function POST(request: NextRequest) {
     },
     body: request.body,
     duplex: "half",
-  } as any);
+  } as RequestInit & { duplex: "half" });
 
   const data = await res.json();
   return NextResponse.json(data, { status: res.status });
-//   const text = await res.text()
-// console.log("🔁 Backend response:", res.status, text)
+  //   const text = await res.text()
+  // console.log("🔁 Backend response:", res.status, text)
 
-// return new Response(text, { status: res.status })
+  // return new Response(text, { status: res.status })
 }

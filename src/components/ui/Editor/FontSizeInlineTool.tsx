@@ -1,3 +1,4 @@
+import type EditorJS from "@editorjs/editorjs";
 export default class FontSizeInlineTool {
   static isInline = true
   static title = "Font size"
@@ -7,11 +8,11 @@ export default class FontSizeInlineTool {
     },
   }
 
-  private api: any
+  private api: EditorJS.API;
   private selectEl!: HTMLSelectElement
   private currentSize = "16px"
 
-  constructor({ api }: { api: any }) {
+  constructor({ api }: { api:  EditorJS.API }) {
     this.api = api
   }
 

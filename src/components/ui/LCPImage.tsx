@@ -1,7 +1,7 @@
 "use client"
 import Image, { ImageProps } from "next/image"
 import { useState } from "react"
-import noPhoto from "/no-photo.jpg"
+// import noPhoto from "/no-photo.jpg"
 interface LCPImageProps extends Omit<ImageProps, "fill"> {
   className?: string
   containerClassName?: string

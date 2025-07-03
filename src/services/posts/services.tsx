@@ -1,4 +1,3 @@
-import { api } from "../api";
 import { localApi } from "../api-local";
 
 export interface Author {

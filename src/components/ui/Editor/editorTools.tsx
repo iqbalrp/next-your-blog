@@ -14,7 +14,7 @@ import Embed from "@editorjs/embed";
 import LinkTool from "@editorjs/link";
 import ImageTool from "@editorjs/image";
 import Paragraph from "editorjs-paragraph-with-alignment";
-import Title from "title-editorjs";
+// import Title from "title-editorjs";
 import FontSizeInlineTool from "./FontSizeInlineTool";
 export const EDITOR_TOOLS = {
   header: { class: Header, inlineToolbar: true },

@@ -1,5 +1,5 @@
 "use client";
-
+import Image from "next/image";
 import { useAuth } from "@/context/AuthContext";
 import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
@@ -26,10 +26,12 @@ const ProfileModal = () => {
       <button
         onClick={() => setOpen(!open)}
         className="flex items-center gap-3 cursor-pointer justify-center">
-        <img
+        <Image
           src={user?.avatarUrl || "/user.png"}
           alt="avatar"
-          className="w-10 h-10 rounded-full object-cover"
+          width={40}
+          height={40}
+          className="rounded-full object-cover"
         />
         <span className="text-sm font-medium text-neutral-900">
           {user?.name}
@@ -41,10 +43,12 @@ const ProfileModal = () => {
           <Link
             href="/profile"
             className="cursor-pointer w-full h-11 text-left px-4 py-2 text-sm text-neutral-950  font-normal flex items-center gap-2 hover:bg-primary-100  rounded-t-xl">
-            <img
+            <Image
               src="/icons/icon-user.svg"
               alt="logout"
-              className="w-5 h-5  object-cover"
+              width={20}
+              height={20}
+              className="object-cover rounded"
             />
             Profile
           </Link>
@@ -52,10 +56,12 @@ const ProfileModal = () => {
           <button
             onClick={logout}
             className="cursor-pointer w-full h-11 text-left px-4 py-2 text-sm text-neutral-950  font-normal flex items-center gap-2 hover:bg-primary-100  rounded-b-xl">
-            <img
+            <Image
               src="/icons/icon-logout.svg"
               alt="logout"
-              className="w-5 h-5  object-cover"
+              width={20}
+              height={20}
+              className="object-cover"
             />
             Logout
           </button>

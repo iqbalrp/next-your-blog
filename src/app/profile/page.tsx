@@ -1,6 +1,5 @@
-// app/profile/page.tsx
 "use client";
-
+import Image from "next/image";
 import { useUser } from "@/hooks/useUser";
 import Link from "next/link";
 import ProfileTabs from "./ProfileTabs";
@@ -16,10 +15,12 @@ const ProfilePage = () => {
       <div className="w-[800px]  flex flex-col pt-[128px]   gap-5">
         <div className=" flex justify-between items-center w-[800px] px-6 py-4  bg-white rounded-xl border border-neutral-300">
           <div className="flex items-center gap-4">
-            <img
+            <Image
               src={user.avatarUrl || "/user.png"}
               alt="avatar"
-              className="w-20 h-20 object-cover rounded-full border"
+              width={80}
+              height={80}
+              className="object-cover rounded-full border"
             />
             <div>
               <h1 className="text-xl font-bold text-neutral-900">

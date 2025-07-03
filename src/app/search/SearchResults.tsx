@@ -20,17 +20,11 @@ export default function SearchResult() {
   return (
     <div className="px-6 py-12">
       <h1 className="text-2xl font-semibold mb-4">
-        Result for <span className="text-primary">"{query}"</span>
+        Result for <span className="text-primary">{`"${query}"`}</span>
       </h1>
-
       {isLoading && <p>Memuat hasil...</p>}
-
-      {!isLoading && data?.data?.length === 0 && (
-       <NotFound/>
-      )}
-       if (!data || data.data.length === 0) {}
-
-
+      {!isLoading && data?.data?.length === 0 && <NotFound />}
+      if (!data || data.data.length === 0) {}
       {data?.data.map((post) => (
         <Card key={post.id} showTopBorder={false}>
           <div className="relative min-w-[340px] h-[258px] rounded-[6px]">

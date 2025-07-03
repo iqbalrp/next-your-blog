@@ -7,6 +7,7 @@ import ImageUploader from "@/components/ui/ImageUploader";
 import TagInput from "@/components/ui/TagInput";
 import { Button } from "@/components/ui/Button";
 import type { CreatePostPayload } from "@/services/posts/services";
+import type EditorJS from "@editorjs/editorjs";
 
 export default function CreateForm() {
   const [title, setTitle] = useState("");
@@ -14,7 +15,7 @@ export default function CreateForm() {
   const [image, setImage] = useState<File | null>(null);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [loading, setLoading] = useState(false);
-  const editorRef = useRef<any>(null);
+  const editorRef = useRef<EditorJS | null>(null);
   const { mutateAsync } = useCreatePost();
   type EditorBlock = {
     type: string;
@@ -36,10 +37,13 @@ export default function CreateForm() {
         return;
       }
       contentJSON = saved;
-    } catch (err) {
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error ? err.message : "Unknown error occurred";
+
       setErrors((prev) => ({
         ...prev,
-        content: "Failed to read editor content.",
+        content: message,
       }));
       return;
     }
@@ -74,16 +78,20 @@ export default function CreateForm() {
       const result = await mutateAsync(payload);
       alert(`✅ Post berhasil dibuat: ${result.title}`);
       // redirect(`/dashboard/posts`) kalau kamu mau
-    } catch (error: any) {
-      console.error("❌ Submit gagal:", error);
-      setErrors({ general: error.message || "Gagal submit post" });
+    } catch (error: unknown) {
+      const message =
+        error instanceof Error ? error.message : "Failed to submit post";
+      console.error("❌ Failed to submit post:", error);
+      setErrors({ general: message });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-[361px] lg:w-[807px] flex flex-col gap-5" >
+    <form
+      onSubmit={handleSubmit}
+      className="w-[361px] lg:w-[807px] flex flex-col gap-5">
       {/* Title */}
       <div className="flex flex-col gap-1.5">
         <label className="font-semibold text-sm text-neutral-950">Title</label>

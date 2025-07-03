@@ -10,7 +10,7 @@ interface TagInputProps {
 }
 
 export default function TagInput({
-  label = "Tags",
+  // label = "Tags",
   placeholder = "Enter your tags",
   maxTags = 10,
   onChange,
