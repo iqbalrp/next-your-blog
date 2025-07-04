@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import axios from "axios";
-
 const baseURL =
   typeof window !== "undefined"
     ? window.location.origin // client-side: gunakan origin browser saat ini
