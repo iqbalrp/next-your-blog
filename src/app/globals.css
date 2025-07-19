@@ -6,15 +6,15 @@
 }
 
 @font-face {
-    font-family: 'Inter';
-    src: url('/public/fonts/Inter-VariableFont_opsz_wght.ttf') format('truetype');
-    font-weight: 100 900; 
-    font-style: normal;
-    font-display: swap; /* for better performance */
+  font-family: "Inter";
+  src: url("/public/fonts/Inter-VariableFont_opsz_wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap; /* for better performance */
 }
 body {
-    /* margin: 0 auto; */
-    font-family: 'Inter';
+  /* margin: 0 auto; */
+  font-family: "Inter";
 }
 
 @theme inline {
@@ -124,6 +124,22 @@ body {
   /* Utility colors */
   --color-white: #ffffff;
   --color-black: #000000;
+}
+@layer utilities {
+  .animate-slide-down {
+    animation: slideDown 300ms ease-out forwards;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px) translateX(-50%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) translateX(-50%);
+    }
+  }
 }
 
 @media (prefers-color-scheme: dark) {

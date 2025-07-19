@@ -13,7 +13,3 @@ export const loginUser = async (payload: LoginPayload): Promise<LoginResponse> =
   const { data } = await localApi.post("/api/login", payload)
   return data
 }
-// export const loginUser = async (payload: LoginPayload): Promise<LoginResponse> => {
-//   const { data } = await api.post("/auth/login", payload)
-//   return data
-// }

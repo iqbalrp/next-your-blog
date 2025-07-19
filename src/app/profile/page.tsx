@@ -1,10 +1,13 @@
 "use client";
 import Image from "next/image";
+import { useState } from "react";
 import { useUser } from "@/hooks/useUser";
-import Link from "next/link";
+import { DialogEditProfile } from "@/components/ui/Dialog/DialogEditProfile";
 import ProfileTabs from "./ProfileTabs";
+import { Button } from "@/components/ui/Button";
 const ProfilePage = () => {
   const { data: user, isLoading, isError } = useUser();
+  const [open, setOpen] = useState(false);
 
   if (isLoading) return <p className="p-6">Loading profile...</p>;
   if (isError || !user)
@@ -32,11 +35,23 @@ const ProfilePage = () => {
               <p className="text-sm text-neutral-500">{user.email}</p>
             </div>
           </div>
-          <Link
-            href="/login"
-            className="pr-4 text-primary-300 font-semibold text-sm leading-sm space-x-sm tracking-display-2xl underline">
-            Edit Profile
-          </Link>
+          <Button
+            onClick={() => setOpen(true)}
+            type="button"
+            text="Edit Profile"
+            fullWidth={false}
+            variant="ghost"
+            className="hover:bg-transparent cursor-pointer"
+            textClassName="pr-4 text-primary-300 font-semibold text-sm leading-sm space-x-sm tracking-display-2xl underline"
+          />
+          <DialogEditProfile
+                  open={open}
+                  onOpenChange={setOpen}
+                  avatarUrl={user.avatarUrl || "/user.png"}
+                  name= {user?.name ?? ""}
+                  headline= {user?.headline ?? ""}
+                  onSubmit={() => console.log("Update profile")}
+                />
         </div>
         <ProfileTabs />
       </div>

@@ -1,13 +1,18 @@
-import { useQuery } from "@tanstack/react-query"
-import { myPosts } from "@/services/auth"
-import { useAuth } from "@/context/AuthContext"
+import { useQuery } from "@tanstack/react-query";
+import { myPosts, MyPostResponse } from "@/services/posts/services";
 
-export const useMyPostsQuery = () => {
-  const { token } = useAuth()
-
-  return useQuery({
-    queryKey: ["my-posts"],
-    queryFn: () => myPosts(token!),
-    enabled: !!token, // hanya fetch kalau token tersedia
-  })
-}
+export const useMyPostsQuery = (
+  page: number = 1,
+  limit: number = 10,
+  token?: string | null
+) => {
+  return useQuery<MyPostResponse>({
+    queryKey: ["my-posts", page, limit, token],
+    queryFn: () => {
+      if (!token) throw new Error("Token tidak tersedia");
+      return myPosts(page, limit, token);
+    },
+    staleTime: 1000 * 60 * 5, // 5 menit
+    refetchOnWindowFocus: false,
+  });
+};

@@ -31,7 +31,7 @@ const ProfileTabs = () => {
 
       <div >
         <div className=" flex flex-col items-center">{activeTab === "Your Posts" && <UserPosts />}</div>
-        <div className="mt-5"> {activeTab === "Change Password" && <ChangePasswordForm />}</div>
+        <div className="m-5"> {activeTab === "Change Password" && <ChangePasswordForm />}</div>
        
       </div>
     </div>

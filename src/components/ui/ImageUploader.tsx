@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
 import { useRef, useState } from "react";
+import { CloudUpload } from "lucide-react";
 
 interface ImageUploaderProps {
   onFileSelect?: (file: File) => void;
@@ -43,8 +44,8 @@ export default function ImageUploader({ onFileSelect }: ImageUploaderProps) {
 
   return (
     <div
-      className={`border-2 border-dashed rounded-md p-6 text-center transition cursor-pointer ${
-        dragActive ? "bg-blue-50 border-blue-400" : "border-gray-300"
+      className={`flex flex-col items-center justify-center gap-3 border-2 border-dashed rounded-md p-6 text-center transition cursor-pointer bg-neutral-50 ${
+        dragActive ? " border-blue-400" : "border-gray-300"
       }`}
       onClick={() => inputRef.current?.click()}
       onDragOver={(e) => {
@@ -60,6 +61,9 @@ export default function ImageUploader({ onFileSelect }: ImageUploaderProps) {
         onChange={handleChange}
         className="hidden"
       />
+      <div className="h-10 w-10 rounded-md border flex justify-center items-center border-neutral-300">
+        <CloudUpload height={20} width={20} />
+      </div>
 
       <p className="text-gray-600">
         <span className="font-medium text-blue-500">Click to upload</span> or

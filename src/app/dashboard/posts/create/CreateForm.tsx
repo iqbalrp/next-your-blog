@@ -75,6 +75,8 @@ export default function CreateForm() {
       image, // ✅ TypeScript tahu ini bukan null
     };
     try {
+      console.log("🖼️ Is image File?", image instanceof File); // harus true
+      console.log("📤 Image:", image);
       const result = await mutateAsync(payload);
       alert(`✅ Post berhasil dibuat: ${result.title}`);
       // redirect(`/dashboard/posts`) kalau kamu mau

@@ -2,7 +2,12 @@ import { useMutation } from "@tanstack/react-query";
 import { LoginPayload } from "@/services/user";
 import { useRouter } from "next/navigation";
 
-export const useLoginMutation = () => {
+interface LoginMutationOptions {
+  onSuccess?: (data: { message: string }) => void;
+  onError?: (error: unknown) => void;
+}
+
+export const useLoginMutation = ({ onSuccess, onError }: LoginMutationOptions = {}) => {
   const router = useRouter();
 
   return useMutation({
@@ -13,21 +18,21 @@ export const useLoginMutation = () => {
         body: JSON.stringify(payload),
       });
 
+      const result = await response.json();
+
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Login gagal");
+        throw new Error(result.message || "Login gagal");
       }
+
+      return result;
     },
-    onSuccess: () => {
-      router.push("/");
+    onSuccess: (data) => {
+      onSuccess?.(data); // modal handling di caller
+      router.push("/");  // tetap redirect
     },
-    onError: (error: unknown) => {
-      const message =
-        error instanceof Error
-          ? error.message
-          : "Login gagal. Silakan coba lagi.";
-      alert(message);
-      console.error("Login error:", error);
+    onError: (error) => {
+      onError?.(error); // modal handling di caller
+      // console.error("Login error:", error);
     },
   });
 };
